@@ -2,18 +2,18 @@
 // Debe poder buscarla independientemente de mayúsculas o minúsculas.
 // Si no existe la receta, debe mostrar un mensaje adecuado.
 // Debe buscar tanto las de la API como las de la base de datos.
+//require("dotenv").config();
+const axios = require("axios");
 const { Recipe, Diet } = require("../db");
-const  axios = require("axios");
-require("dotenv").config();
-const {API_KEY} = process.env.API_KEY;
+const API_KEY1 = process.env.API_KEY1;
 const { Op } = require("sequelize");
+const { getAllInfo, getDBInfo } = require("../controllers/getAllRecipes");
 
 
 const getApiByName = async (name) => {
            
     try{
-        const resAxios = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?titleMatch=${name}&addRecipeInformation=true%number=1&apiKey=${API_KEY}
-        `);
+        const resAxios = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&addRecipeInformation=true&number=1&apiKey=${API_KEY1}`);
         const { results } = resAxios.data;
         if(results.length > 0){
             let response = results?.map((result) => {
@@ -47,14 +47,50 @@ const getApiByName = async (name) => {
     }
 }
 
-// const DBbyName = async (name) =>{
-//     try {
-//         const DBdata = await getDBinfo();
-//         const filtName = DBdata.filter(recipe => recipe.name.includes(name));
+const getDBByName = async (name) => {
+    try{
+        const DBInfo = await getDBInfo();
+        const filtByName = DBInfo.filter(recipe => recipe.name.includes(name));
+       
+        return filtByName;
+    }catch (error) {
+        return ('error')
+    } 
+}
 
-//         return filtName
-//     } catch(error){
-//         return console.log(error);
-//     }
-// }
-module.exports = {getApiByName};
+const getInfoByName = async (name) => {
+    try{
+        const apiByName = await getApiByName(name)
+        const DBByName = await getDBByName(name)
+        const infoTotal = apiByName.concat(DBByName)
+        return infoTotal
+    }catch (error) {
+        return ('error')
+    }
+}   
+
+const completeInfo = async (req, res) => {
+    const { name } = req.query;
+    if(name) {
+        const infoByName = await getInfoByName(name);
+        if(infoByName) {
+            res.status(200).json(infoByName)
+        } else {
+            res.status(404).send("Not found")
+        }
+    } else {
+        const allInfo = await getAllInfo()
+        if(allInfo) {
+            res.json(allInfo);
+        } else {
+            res.status(404).json({ message: "Error"})
+        }
+    }
+}
+
+
+
+module.exports = {
+    getInfoByName,
+    completeInfo,
+}

@@ -8,6 +8,7 @@ module.exports = (sequelize) => {
       type: DataTypes.UUID,
       defaultValue: UUIDV4,
       primaryKey: true,
+      allowNull: false
     },
     name: {
       type: DataTypes.STRING,
@@ -15,7 +16,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
+      
     },
     summary: {
       type: DataTypes.STRING,
@@ -25,9 +26,9 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false, 
     },
-    step: {
+    steps: {
       type: DataTypes.STRING,
-      allowNull: false
+     
     }
   }, {timestamps: false});
 };

@@ -39,6 +39,7 @@ const getDBInfo = async () => {
             include: {
                 model: Diet,
                 attributes: ["name"],
+                as: "diet",
                 through: {
                     attributes: []
                 }
@@ -75,5 +76,7 @@ const getAllInfo = async (req, res) => {
 }
 
 module.exports = {
+    getApiInfo,
+    getDBInfo,
     getAllInfo
 }
