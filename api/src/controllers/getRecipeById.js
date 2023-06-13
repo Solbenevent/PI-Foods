@@ -27,7 +27,15 @@ const getRecipeById = async (req, res) => {
         } 
         if(recipes) {
             const diets = recipes.diets ? recipes.diets.map(dieta => dieta) : [];
-            const analyzedInstruction = recipes.analyzedInstructions ? recipes.analyzedInstructions.map((instruction) => instruction.steps) : [];
+            //const analyzedInstruction = recipes.analyzedInstructions ? recipes.analyzedInstructions.map((instruction) => instruction.steps) : [];
+            let analyzedInstructions = [];
+            if(recipes.analyzedInstructions) {
+                analyzedInstructions = recipes.analyzedInstructions.flatMap(group => group.steps).map(step => ({
+                    number: step.number,
+                    step: step.step
+                }))
+            }  
+            
             res.status(200).json({
                 id: recipes.id,
                 name: recipes.title,
@@ -38,7 +46,8 @@ const getRecipeById = async (req, res) => {
                 summary: recipes.summary,
                 healthScore: recipes.healthScore,
                 instructions: recipes.instructions,
-                analyzedInstruction,
+                //analyzedInstruction,
+                stepByStep: analyzedInstructions,
                 diets,
             });
         } else {

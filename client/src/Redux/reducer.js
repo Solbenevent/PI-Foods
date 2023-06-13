@@ -1,8 +1,9 @@
-import { GET_RECIPES, SET_RECIPES, DETAIL_RECIPE, CLEAR_DETAIL } from "./actions";
+import { GET_RECIPES, SET_RECIPES, DETAIL_RECIPE, CLEAR_DETAIL, GET_DIETS } from "./actions";
 
 const initialState = {
     recipes: [],
-    detailRecipes: {}
+    detailRecipes: {},
+    diets: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -27,7 +28,12 @@ const reducer = (state = initialState, action) => {
             ...state,
             detailRecipes: {}
         } 
-  
+    case GET_DIETS:
+        return {
+            ...state,
+            diets: action.payload
+        }
+        
     default:
         return {
             ...state

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from "react-redux"
 import { useParams, Link } from "react-router-dom";
-import { detailRecipe } from "../../Redux/actions";
+import { detailRecipe, clearDetail } from "../../Redux/actions";
 
 // ID.
 // Nombre.
@@ -19,6 +19,7 @@ const Detail = () => {
 
  useEffect(() => {
     dispatch(detailRecipe(id))
+    dispatch(clearDetail())
  }, [dispatch, id])
 
   return (
@@ -44,13 +45,19 @@ const Detail = () => {
             <h3>{recipe?.diets}</h3>
         </div>
        <hr />
-        <div>
-            <p>{recipe.summary}</p>
+        <div className="detail-summary" dangerouslySetInnerHTML={{__html: recipe.summary}}>
+            {/* <p>{recipe.summary}</p> */}
         </div>
      <hr />
         <div>
-           <p>{recipe.steps}</p>
-        </div>
+            {recipe.stepByStep?.map(e => (
+                <div>
+                    <p>{e.number}</p>
+                    <p>{e.step}</p>
+                </div>
+            ))}
+       </div>
+       
        <hr />
         <div>
             <p>{recipe.id}</p>

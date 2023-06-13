@@ -6,6 +6,7 @@ import { getRecipes } from './Redux/actions';
 import Landing from './Components/Landing/Landing';
 import Home from './Components/Home/Home';
 import Detail from './Components/Detail/Detail';
+import Form from './Components/Form/Form';
 
 function App() {
   const dispatch = useDispatch();
@@ -30,8 +31,9 @@ function App() {
     <div className="App">
       <Routes>
      <Route path = "/" element = {<Landing />} />
-     <Route path ="/home" element = {<Home />} />
-     <Route path= "/detail/:id" element = {<Detail />} />
+     <Route path = "/home" element = {<Home />} />
+     <Route path = "/detail/:id" element = {<Detail />} />
+     <Route path = "/create" element = {<Form />} />
       </Routes>
     </div>
   );
