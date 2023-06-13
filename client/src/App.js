@@ -1,9 +1,38 @@
 import './App.css';
+import { Routes, Route } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { getRecipes } from './Redux/actions';
+import Landing from './Components/Landing/Landing';
+import Home from './Components/Home/Home';
+import Detail from './Components/Detail/Detail';
 
 function App() {
+  const dispatch = useDispatch();
+
+  const getAllRecipes = async () => {
+    try {
+      dispatch(getRecipes())
+     
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getAllRecipes()
+
+  }, [])
+
+
+
   return (
     <div className="App">
-      <h1>Henry Food</h1>
+      <Routes>
+     <Route path = "/" element = {<Landing />} />
+     <Route path ="/home" element = {<Home />} />
+     <Route path= "/detail/:id" element = {<Detail />} />
+      </Routes>
     </div>
   );
 }
