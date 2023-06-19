@@ -14,7 +14,6 @@ function App() {
   const getAllRecipes = async () => {
     try {
       dispatch(getRecipes())
-     
     } catch (error) {
       console.log(error)
     }
@@ -22,9 +21,7 @@ function App() {
 
   useEffect(() => {
     getAllRecipes()
-
   }, [])
-
 
 
   return (

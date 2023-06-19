@@ -1,4 +1,5 @@
 import SearchBar from "../SearchBar/SearchBar";
+import FiltersOrders from "../Filter&Order/FiltersOrders";
 
 const NavBar = () => {
     return(

@@ -5,6 +5,16 @@ export const DETAIL_RECIPE = "DETAIL_RECIPE";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const CREATE_RECIPE = "CREATE_RECIPE";
 export const GET_DIETS ="GET_DIETS";
+export const FILTER_DIETS = "FILTER_DIETS";
+
+
+
+export const setRecipes = (recipes) => {
+  return {
+    type: SET_RECIPES,
+    recipes: recipes,
+  }
+}
 
  export const getRecipes = () => {
     const ENDPOINT = "http://localhost:3001/recipes";
@@ -13,18 +23,17 @@ export const GET_DIETS ="GET_DIETS";
             const { data } = await axios(ENDPOINT);
         
             if(data){
-                console.log(data);
+                
                 return dispatch({
                     type: GET_RECIPES,
                     payload: data
-                })
-            }
+                })}
         } catch (error) {
             throw Error("Error catching recipes")
         }
     }
 }
-
+ 
 
 
 export const detailRecipe = (id) => {
@@ -37,7 +46,7 @@ export const detailRecipe = (id) => {
             type: DETAIL_RECIPE,
             payload: data,
           });
-        }
+        }console.log(data);
       } catch (error) {
         throw Error("Error catching detail");
       }
@@ -82,3 +91,10 @@ export const getDiets = () => {
     }
   }
 }
+
+
+
+
+
+
+

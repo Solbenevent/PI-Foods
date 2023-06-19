@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavBar from "../NavBar/NavBar";
 import Cards from "../Cards/Cards";
+import FiltersOrders from "../Filter&Order/FiltersOrders";
 import Pagination from "../Pagination/Pagination";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { filterRecipes } from "../../Redux/actions";
+
 
 const Home = () => {
+  const dispatch = useDispatch();
+
+
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 10;
 
@@ -22,10 +28,15 @@ const Home = () => {
     indexOfLastRecipe
   );
 
+
+
   return (
     <div>
         <NavBar />
         <h1>Este es el Home</h1>
+        <div>
+          <FiltersOrders setCurrentPage={setCurrentPage} />
+        </div>
         <div>
           <Pagination
           recipePerPage={recipesPerPage}

@@ -5,7 +5,7 @@
 //require("dotenv").config();
 const axios = require("axios");
 const { Recipe, Diet } = require("../db");
-const API_KEY1 = process.env.API_KEY1;
+const API_KEY4 = process.env.API_KEY4;
 const { Op } = require("sequelize");
 const { getAllInfo, getDBInfo } = require("../controllers/getAllRecipes");
 
@@ -13,7 +13,7 @@ const { getAllInfo, getDBInfo } = require("../controllers/getAllRecipes");
 const getApiByName = async (name) => {
            
     try{
-        const resAxios = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&addRecipeInformation=true&number=1&apiKey=${API_KEY1}`);
+        const resAxios = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&addRecipeInformation=true&number=1&apiKey=${API_KEY4}`);
         const { results } = resAxios.data;
         if(results.length > 0){
             let response = results?.map((result) => {

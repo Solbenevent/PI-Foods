@@ -4,6 +4,7 @@ const initialState = {
     recipes: [],
     detailRecipes: {},
     diets: [],
+    
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,7 +17,7 @@ const reducer = (state = initialState, action) => {
     case SET_RECIPES:
         return {
             ...state,
-            recipes: action.recipes
+            recipes: [...state.recipes, ...action.recipes],
         }   
     case DETAIL_RECIPE:
         return {
@@ -33,6 +34,13 @@ const reducer = (state = initialState, action) => {
             ...state,
             diets: action.payload
         }
+
+
+   
+    
+
+   
+
         
     default:
         return {
