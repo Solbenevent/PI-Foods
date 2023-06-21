@@ -37,6 +37,9 @@ const Form = () => {
         healthScore: ""
     })
 
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
+
     const handleInputChange = (e) => {
         const property = e.target.name;
         const value = e.target.value;

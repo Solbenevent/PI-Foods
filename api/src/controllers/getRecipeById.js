@@ -3,59 +3,9 @@ const { Recipe, Diet } = require("../db");
 require("dotenv").config();
 const  API_KEY4  = process.env.API_KEY4; 
 const axios = require("axios");
+//const response = require("../../apiResults");
 const { v4: uuidv4 } = require('uuid');
 
-// const getRecipeById = async (req, res) => {
-//     const { id } = req.params;
-//     try {
-//         let recipes;
-//         if(id){
-//             const url = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${API_KEY4}`
-//             const response = await axios.get(url);
-//             recipes = response.data;
-//         } if(!recipes) { //---
-//             const uuidRecipe = uuidv4();
-//             recipes = await Recipe.findByPk(uuidRecipe, {
-//                 include: Diet,
-//                 attributes: ["name"],
-//                 through: {
-//                   attributes: [],
-//                 },
-//             });
-            
-//         } //-----
-//         if(recipes) {
-//             const diets = recipes.diets ? recipes.diets.map(dieta => dieta) : [];
-//             //const analyzedInstruction = recipes.analyzedInstructions ? recipes.analyzedInstructions.map((instruction) => instruction.steps) : [];
-//             let analyzedInstructions = [];
-//             if(recipes.analyzedInstructions) {
-//                 analyzedInstructions = recipes.analyzedInstructions.flatMap(group => group.steps).map(step => ({
-//                     number: step.number,
-//                     step: step.step
-//                 }))
-//             }  
-            
-//             res.status(200).json({
-//                 id: recipes.id,
-//                 name: recipes.title,
-//                 image: recipes.image,
-//                 vegetarian: recipes.vegetarian,
-//                 vegan: recipes.vegan,
-//                 glutenFree: recipes.glutenFree,
-//                 summary: recipes.summary,
-//                 healthScore: recipes.healthScore,
-//                 instructions: recipes.instructions,
-//                 //analyzedInstruction,
-//                 stepByStep: analyzedInstructions,
-//                 diets,
-//             });
-//         } else {
-//             res.status(404).send("Recipe not found")
-//         }
-//     } catch (error) {
-//         res.status(500).send(error);
-//     }
-// }
 
 const getIdRecipesApi = async (id) => {
     const response = await axios(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=true&apiKey=${API_KEY4}`);

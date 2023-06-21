@@ -1,11 +1,11 @@
 import SearchBar from "../SearchBar/SearchBar";
-import FiltersOrders from "../Filter&Order/FiltersOrders";
 
-const NavBar = () => {
+
+const NavBar = ({ setCurrentPage }) => {
     return(
         <div>
             <div>
-                <SearchBar />
+                <SearchBar setCurrentPage = {setCurrentPage} />
             </div>
         </div>
     )

@@ -1,0 +1,96 @@
+/* .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #22a699, #f2be22, #f29727, #f24c3d);
+  }
+  
+  .container-landing-img {
+    margin-bottom: 20px;
+  }
+  
+  .landing-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .welcome {
+    color: white;
+    font-size: 32px;
+  }
+  
+  .container-btn-landing {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+  
+  .btn-landing {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #f24c3d;
+  }
+  
+  .btn-landing:hover {
+    background-color: #f24c3d;
+    color: white;
+  } */
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  .landing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background: linear-gradient(135deg, #22a699, #f2be22, #f29727, #f24c3d);
+  }
+  
+  .container-landing-img {
+    margin-bottom: 20px;
+  }
+  
+  .landing-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .welcome {
+    color: white;
+    font-size: 32px;
+  }
+  
+  .container-btn-landing {
+    margin-top: 20px;
+  }
+  
+  .btn-landing {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #f24c3d;
+  }
+  
+  .btn-landing:hover {
+    background-color: #f24c3d;
+    color: white;
+  }
+  
+  
+  
+  

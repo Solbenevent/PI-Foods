@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector} from "react-redux"
 import { useParams, Link } from "react-router-dom";
 import { detailRecipe, clearDetail } from "../../Redux/actions";
+import leftArrow from "../Images/leftArrow.png";
+import "../Detail/Detail.css";
 
 // ID.
 // Nombre.
@@ -23,44 +25,44 @@ const Detail = () => {
  }, [dispatch, id])
 
   return (
-    <div>
+    <div className="detail-container">
         <div>
             <Link to = "/home">
-            <button>Back</button>
+            <button className="btn-detail"><img src={leftArrow} className="back-detail"/></button>
             </Link>
 
-        <div>
+        <div className="detail-name">
             <h1>{recipe?.name}</h1>
         </div>
 
-        <div>
-            <img src ={recipe?.image} alt={recipe.name}/>
+        <div className="container-img">
+            <img src ={recipe?.image} alt={recipe.name} className="detail-img"/>
         </div>
 
-        <div>
-            <h3>{recipe?.healthScore}</h3>
+        <div className="container-detail-score">
+            <h3 className="detail-score">{recipe?.healthScore}</h3>
         </div>
 
-        <div>
-            <h3>{recipe?.diets}</h3>
+        <div className="container-detail-diets">
+            <h3 className="detail-diets">{recipe?.diets}</h3>
         </div>
        <hr />
         <div className="detail-summary" dangerouslySetInnerHTML={{__html: recipe.summary}}>
             {/* <p>{recipe.summary}</p> */}
         </div>
      <hr />
-        <div>
+        <div className="container-detail-steps">
             {recipe.stepByStep?.map(e => (
                 <div>
-                    <p>{e.number}</p>
-                    <p>{e.step}</p>
+                    <p className="detail-steps">{e.number}</p>
+                    <p className="detail-steps">{e.step}</p>
                 </div>
             ))}
        </div>
        
        <hr />
-        <div>
-            <p>{recipe.id}</p>
+        <div className="id">
+            <p className="detail-id">{recipe.id}</p>
         </div>   
         </div>
     </div>

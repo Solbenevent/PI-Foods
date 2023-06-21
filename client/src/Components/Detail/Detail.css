@@ -1,0 +1,106 @@
+.detail-container {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detail-container a {
+    text-decoration: none;
+  }
+
+  .detail-container {
+    background: linear-gradient(135deg, #22a699, #f2be22, #f29727, #f24c3d);
+    /* Resto de estilos... */
+  }
+  
+  
+  .detail-container .btn-detail {
+    padding: 8px;
+    background-color: #22a699;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .detail-container .btn-detail .back-detail {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+  }
+  
+  .detail-container .btn-detail:hover {
+    background-color: #1e897f;
+  }
+  
+  .detail-container .detail-name h1 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #000;
+  }
+  
+  .detail-container .container-img {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .detail-container .detail-img {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px; /* Ajusta el tamaño máximo de la imagen */
+  }
+  
+  .detail-container .container-detail-score {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .detail-container .detail-score {
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .detail-container .container-detail-diets {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .detail-container .detail-diets {
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .detail-container hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
+  
+  .detail-container .detail-summary p {
+    margin: 0;
+    color: #000;
+  }
+  
+  .detail-container .container-detail-steps {
+    margin-bottom: 20px;
+  }
+  
+  .detail-container .detail-steps {
+    margin: 0;
+    color: #000;
+    font-weight: bold;
+  }
+  
+  .detail-container .detail-id {
+    font-size: 14px;
+    color: #f24c3d;
+    margin: 0;
+    text-align: center;
+  }
+  
+  
