@@ -44,7 +44,9 @@ const Detail = () => {
         </div>
 
         <div className="container-detail-diets">
-            <h3 className="detail-diets">{recipe?.diets}</h3>
+            {/* <h3 className="detail-diets">{recipe?.diets?.join(", ")}</h3> */}
+            <h3 className="detail-diets">
+    {recipe?.diets?.map(diet => diet.name).join(", ")}</h3>
         </div>
        <hr />
         <div className="detail-summary" dangerouslySetInnerHTML={{__html: recipe.summary}}>
@@ -52,10 +54,10 @@ const Detail = () => {
         </div>
      <hr />
         <div className="container-detail-steps">
-            {recipe.stepByStep?.map(e => (
-                <div>
-                    <p className="detail-steps">{e.number}</p>
-                    <p className="detail-steps">{e.step}</p>
+            {recipe.steps?.map((step, index) => (
+                <div key ={index}>
+                    <p className="detail-steps">{step.number}</p>
+                    <p className="detail-steps">{step.step}</p>
                 </div>
             ))}
        </div>

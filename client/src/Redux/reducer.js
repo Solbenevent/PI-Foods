@@ -1,4 +1,4 @@
-import { GET_RECIPES, DETAIL_RECIPE, CLEAR_DETAIL, GET_DIETS, FILTER_BY_DIETS, ORDER_ALPHABETIC, ORDER_HEALTHSCORE, FILTER_BY_ORIGIN, GET_RECIPE_NAME, DELETE_FILTERS } from "./actions";
+import { GET_RECIPES, DETAIL_RECIPE, CLEAR_DETAIL, GET_DIETS, CREATE_RECIPE, FILTER_BY_DIETS, ORDER_ALPHABETIC, ORDER_HEALTHSCORE, FILTER_BY_ORIGIN, GET_RECIPE_NAME, DELETE_FILTERS } from "./actions";
 
 const initialState = {
     recipes: [],
@@ -19,16 +19,24 @@ const reducer = (state = initialState, {type, payload}) => {
         ...state,
         recipes: payload
       }    
-    // case SET_RECIPES:
+    case CREATE_RECIPE:
+      return{
+        ...state,
+        recipes: payload
+      } 
+    // case DETAIL_RECIPE:
     //     return {
     //         ...state,
-    //         recipes: [...state.recipes, ...recipes],
-    //     }   
+    //         detailRecipes: payload
+    //     }    
     case DETAIL_RECIPE:
-        return {
-            ...state,
-            detailRecipes: payload
-        }    
+      return {
+        ...state,
+        detailRecipes: {
+          ...payload,
+          diets: payload.diets || []
+        }
+      }
     case CLEAR_DETAIL:
         return {
             ...state,
@@ -52,8 +60,8 @@ const reducer = (state = initialState, {type, payload}) => {
             ...state,
             recipes:
               payload === "A-Z"
-                ? state.recipes.sort((a, b) => a.name.localeCompare(b.title))
-                : state.recipes.sort((a, b) => b.name.localeCompare(a.title)),
+                ? state.recipes.sort((a, b) => a.name.localeCompare(b.name))
+                : state.recipes.sort((a, b) => b.name.localeCompare(a.name)),
           };
     case ORDER_HEALTHSCORE:
         return {
@@ -63,24 +71,8 @@ const reducer = (state = initialState, {type, payload}) => {
                 ? state.recipes.sort((a, b) => (a.healthScore < b.healthScore ? -1 : 1))
                 : state.recipes.sort((a, b) => (a.healthScore > b.healthScore ? -1 : 1)),
           };
-    // case FILTER_BY_ORIGIN:
-    //     const filtered = state.recipes.filter((recipe) => {
-    //         const regExp = /^[0-9]+$/;
-    //         if (payload === 'Api' && regExp.test(recipe.id)) {
-    //           return true;
-    //         } else if (payload === 'DataBase' && !regExp.test(recipe.id)) {
-    //           return true;
-    //         } else {
-    //           return false;
-    //         }
-    //       })
-    //       return {
-    //         ...state,
-    //         recipes: filtered
-    //       }
-    // Reducer
+
 case FILTER_BY_ORIGIN:
-  //const { payload } = action; // Obtén el valor del origen de la acción
   const filteredRecipes = state.recipes.filter((recipe) => {
     const regExp = /^[0-9]+$/;
     if (payload === 'Api' && regExp.test(recipe.id)) {
@@ -104,18 +96,11 @@ case FILTER_BY_ORIGIN:
           recipes: state.recipes
         }                     
 
-
-   
-    
-   
-   
-
-        
     default:
         return {
             ...state
         }
-        break;
+      
   }
 }
 

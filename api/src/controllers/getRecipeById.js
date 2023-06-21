@@ -1,4 +1,6 @@
 
+
+
 const { Recipe, Diet } = require("../db");
 require("dotenv").config();
 const  API_KEY4  = process.env.API_KEY4; 
@@ -31,7 +33,7 @@ const getIdRecipesApi = async (id) => {
         healthScore: recipes.healthScore,
         instructions: recipes.instructions,
                         //analyzedInstruction,
-        stepByStep: analyzedInstructions,
+        steps: analyzedInstructions,
         diets,
     }
 }
@@ -77,6 +79,11 @@ const getRecipeById = async (req, res) => {
         res.status(400).send("Something went wrong")
     }
 }
+
+module.exports = {
+    getRecipeById   
+}
+ 
 
 module.exports = {
     getRecipeById   

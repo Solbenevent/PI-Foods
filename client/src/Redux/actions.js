@@ -64,12 +64,22 @@ export const detailRecipe = (id) => {
     return async (dispatch) => {
       try {
         const { data } = await axios.get(ENDPOINT); // Agregar 'await' aquí
-        if (data) {
+        // if (data) {
+        //   return dispatch({
+        //     type: DETAIL_RECIPE,
+        //     payload: data,
+        //   });
+        // }console.log(data);
+        if(data) {
+          const recipe = {
+            ...data,
+            diets: data.diets || []
+          };
           return dispatch({
             type: DETAIL_RECIPE,
-            payload: data,
-          });
-        }console.log(data);
+            payload: recipe
+          })
+        }
       } catch (error) {
         throw Error("Error catching detail");
       }

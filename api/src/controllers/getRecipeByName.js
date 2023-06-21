@@ -8,11 +8,13 @@ const { Op } = require("sequelize");
 const { getAllInfo, getDBInfo } = require("../controllers/getAllRecipes");
 
 
-const getApiByName = async (name) => {
+ const getApiByName = async (name) => {
            
-    try{
-        const resAxios = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&addRecipeInformation=true&number=1&apiKey=${API_KEY4}`);
-        const { results } = resAxios.data;
+     try{
+         const resAxios = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?query=${name}&addRecipeInformation=true&number=1&apiKey=${API_KEY4}`);
+         const { results } = resAxios.data;
+       
+        
         if(results.length > 0){
             let response = results?.map((result) => {
                 return {
@@ -44,17 +46,17 @@ const getApiByName = async (name) => {
         return ('error')
     }
 }
-
 const getDBByName = async (name) => {
-    try{
+    try {
         const DBInfo = await getDBInfo();
-        const filtByName = DBInfo.filter(recipe => recipe.name.includes(name));
+        const filtByName = DBInfo.filter(recipe => recipe.name.toLowerCase().includes(name.toLowerCase()));
        
         return filtByName;
-    }catch (error) {
-        return ('error')
+    } catch (error) {
+        return ('error');
     } 
-}
+};
+
 
 const getInfoByName = async (name) => {
     try{
@@ -89,6 +91,6 @@ const completeInfo = async (req, res) => {
 
 
 module.exports = {
-    getInfoByName,
+     getInfoByName,
     completeInfo,
 }

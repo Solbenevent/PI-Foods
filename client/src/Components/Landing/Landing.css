@@ -59,12 +59,13 @@
   }
   
   .container-landing-img {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    width: 40%;
   }
   
   .landing-title {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   
   .welcome {

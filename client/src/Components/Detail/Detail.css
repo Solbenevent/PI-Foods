@@ -39,6 +39,7 @@
     margin-top: 0;
     margin-bottom: 10px;
     color: #000;
+    font-weight: bold;
   }
   
   .detail-container .container-img {
@@ -84,6 +85,7 @@
   .detail-container .detail-summary p {
     margin: 0;
     color: #000;
+    font-weight: bold;
   }
   
   .detail-container .container-detail-steps {
@@ -98,7 +100,8 @@
   
   .detail-container .detail-id {
     font-size: 14px;
-    color: #f24c3d;
+    color: black;
+    font-weight: bold;
     margin: 0;
     text-align: center;
   }
