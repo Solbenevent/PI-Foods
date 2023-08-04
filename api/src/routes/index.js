@@ -1,7 +1,8 @@
 const { Router } = require('express');
 const { getRecipeById  } = require("../controllers/getRecipeById");
-const  {getAllInfo}  = require("../controllers/getAllRecipes");
-const { completeInfo } = require("../controllers/getRecipeByName");
+//const  { getRecipes }  = require("../controllers/getAllRecipes");
+const { fetchAndSaveRecipes } = require("../controllers/getAllRecipes");
+const { searchRecipesNames} = require("../controllers/getRecipeByName");
 const {fetchAndSavedDiets } = require("../controllers/getAllDiets");
 const { createRecipes } = require("../controllers/createRecipes");
 const { deleteRecipe } = require("../controllers/deleteRecipe")
@@ -15,8 +16,8 @@ const router = Router();
 // Ejemplo: router.use('/auth', authRouter);
 
 
-router.get("/recipes", getAllInfo)
-router.get("/recipes/name", completeInfo);
+router.get("/recipes", fetchAndSaveRecipes)
+router.get("/recipes/name", searchRecipesNames);
 router.get("/recipes/:id", getRecipeById );
 router.get("/diets", fetchAndSavedDiets);
 router.post("/recipes", createRecipes);

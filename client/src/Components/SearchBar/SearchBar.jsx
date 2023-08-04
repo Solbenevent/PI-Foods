@@ -9,16 +9,7 @@ import "../SearchBar/SearchBar.css";
 const SearchBar = ({ setCurrentPage }) => {
   const [input, setInput] = useState('');//el estado input se inicializa con una cadena vacia
   const dispatch = useDispatch()
-//   const searchHandler = (event) => {
-//       const { value } = event.target
-//       if (value) {
-//           dispatch(getRecipeName(value))
-//           setCurrentPage(1)
-//       } else {
-//           dispatch(getRecipes())
 
-//       }
-//   }
 const searchHandler = () => {
     if (input) {
       dispatch(getRecipeName(input));

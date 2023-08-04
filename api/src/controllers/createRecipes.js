@@ -1,49 +1,39 @@
 
-
-
 const { Recipe, Diet } = require("../db");
-
-
 
 const createRecipes = async (req, res) => {
   let{
     name,
     summary,
-    score,
     healthScore,
     image,
     steps,
-    diets
+    diets,
 } = req.body
 
-try{
-    let recipeCreate = await Recipe.create({ 
+ try {
+    if(!name, !summary, !healthScore, !image, !steps, !diets) 
+      return res.status(400).json({ message: "Debe completar los campos"}); 
+      
+      const recipeCreated = await Recipe.create({
         name,
         summary,
-        score,
         healthScore,
         image,
         steps,
-    })
+        created: true
+      });
 
-    let dietDB = await Diet.findAll({ //para buscar todas las dietas que queremos asociar a la receta
-        where: {name: diets}
-    })
+     const dietDB = await Diet.findAll({
+        where: { name: diets }
+     });
+     recipeCreated.addDiet(dietDB);
+     return res.status(201).json({ message: "Receta creada exitosamente" }); 
 
-    if (!name) return res.status(400).send({error: 'Debe ingresar el name para la receta'});
-    if (!summary) return res.status(400).send({error: 'Debe ingresar un summary del receta'});
-    if(!healthScore) return res.status(400).send({error: "Debe ingresar heatlh score"})
-    // console.log(recipeCreate);
-    // console.log(dietDB);
-    
-    recipeCreate.addDiet(dietDB); //para asociar esas dietas a la receta
-    res.send('Succesfull');
-
-}catch(error){
-    res.status(400).send(error);
+} catch(error) {
+    return res.status(500).json({ message: "Algo salió mal" + error.message });
 }
 }
-
 
 
 module.exports = {

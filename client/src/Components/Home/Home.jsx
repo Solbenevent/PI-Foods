@@ -10,7 +10,7 @@ import "../Home/Home.css";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { recipes, diets } = useSelector(state => state);
+  const { recipes, diets, filteredRecipes } = useSelector(state => state);
 
   const [currentPage, setCurrentPage] = useState(1);
   const recipesPerPage = 10;
@@ -120,7 +120,7 @@ const Home = () => {
           handlePaginate={handlePaginate} />
         </div>
         <div>
-          <Cards recipes = {currentRecipes} />
+          <Cards recipes = {filteredRecipes.length > 0 ? filteredRecipes : currentRecipes} />
         </div>
     </div>
   )

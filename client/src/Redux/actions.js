@@ -60,31 +60,29 @@ export const getRecipeName =  (name) => {
 
 
 export const detailRecipe = (id) => {
-    const ENDPOINT = `http://localhost:3001/recipes/${id}`;
-    return async (dispatch) => {
-      try {
-        const { data } = await axios.get(ENDPOINT); // Agregar 'await' aquí
-        // if (data) {
-        //   return dispatch({
-        //     type: DETAIL_RECIPE,
-        //     payload: data,
-        //   });
-        // }console.log(data);
-        if(data) {
-          const recipe = {
-            ...data,
-            diets: data.diets || []
-          };
-          return dispatch({
-            type: DETAIL_RECIPE,
-            payload: recipe
-          })
-        }
-      } catch (error) {
-        throw Error("Error catching detail");
+  const ENDPOINT = `http://localhost:3001/recipes/${id}`;
+  return async (dispatch) => {
+    try {
+      const response = await axios.get(ENDPOINT);
+      const { data } = response;
+
+      if (data) {
+        dispatch({
+          type: DETAIL_RECIPE,
+          payload: data,
+        });
+      } else {
+        throw new Error("Recipe not found");
       }
-    };
+    } catch (error) {
+      console.log(error);
+      // No lances un nuevo error aquí, solo regresa el error capturado
+      return error;
+    }
   };
+};
+
+
   
 
 export const clearDetail = () => {

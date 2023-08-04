@@ -4,6 +4,7 @@ const initialState = {
     recipes: [],
     detailRecipes: {},
     diets: [], 
+    filteredRecipes: [],
    
 }
 
@@ -17,7 +18,7 @@ const reducer = (state = initialState, {type, payload}) => {
     case GET_RECIPE_NAME:
       return {
         ...state,
-        recipes: payload
+       filteredRecipes: payload
       }    
     case CREATE_RECIPE:
       return{
@@ -26,16 +27,11 @@ const reducer = (state = initialState, {type, payload}) => {
       } 
     // case DETAIL_RECIPE:
     //     return {
-    //         ...state,
-    //         detailRecipes: payload
-    //     }    
+    
     case DETAIL_RECIPE:
       return {
         ...state,
-        detailRecipes: {
-          ...payload,
-          diets: payload.diets || []
-        }
+        detailRecipes: payload,
       }
     case CLEAR_DETAIL:
         return {
