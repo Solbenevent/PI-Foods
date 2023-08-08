@@ -30,7 +30,8 @@ module.exports = (sequelize) => {
       allowNull: false, 
     },
     steps: {
-      type: DataTypes.ARRAY(DataTypes.JSON)  
+      type: DataTypes.ARRAY(DataTypes.JSON)
+      
     },
   }, {timestamps: false});
 };

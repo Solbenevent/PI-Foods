@@ -156,6 +156,7 @@
         
 //     )
 // }
+import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useSelector, useDispatch } from "react-redux";
 import { getDiets } from "../../Redux/actions";
@@ -168,7 +169,7 @@ const Form = () => {
     const diets = useSelector(state => state.diets); 
     
     //local States
-    const [selectedDiet, setSelectedDiet] = useState([]);
+;
 
     //useEffect
     useEffect(() => {
@@ -176,28 +177,88 @@ const Form = () => {
     }, [dispatch]); 
     
     // useForm
-    const { register, handleSubmit, setValue, formState: {errors} } = useForm({defaultValues: { diets: []}});
+    const { register, handleSubmit, setValue, watch, formState: {errors} } = useForm({defaultValues: { diets: []}});
 
     //Manejar selección múltiple de dietas
-    const handleSelectDiets = (e) => {
-        const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-        setSelectedDiet(selectedDiet => [...selectedDiet, ...selectedOptions]);
-        setValue("diets", selectedOptions); 
-    }
-    
+    // const handleSelectDiets = (e) => {
+    //     const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
+    //     //setSelectedDiet([...selectedDiet, ...selectedOptions]);
+    //     setValue("diets", selectedOptions); 
+    // }
+
+    // const handleCheck = () => {
+    //     setIsChecked(!isChecked); 
+    // }
+    // const handleDietChange = (event) => {
+    //     const { name, checked } = event.target;
+    //     setSelectedDiets((prevSelected) => ({ ...prevSelected, [name]: checked }));
+    //   };
+    const selectedDiets = watch("diets"); 
+     
     //Manejar borrado de dietas
-    const handleDeleteDiet = (e) => {
-      if(e.target) setSelectedDiet([]); 
-    }
+    // const handleDeleteDiet = (index) => {
+    //   const deleteSelectedDiet = [...selectedDiets];
+    //   deleteSelectedDiet.splice(index, 1); // --> el método splice se usa para agregar o eliminar elementos de un array. 
+    //   setSelectedDiets(deleteSelectedDiet); 
+    // }
 
     //Manejar el envío del formulario
-    const onSubmit = handleSubmit((data) => {
-      console.log(data); 
-    }); 
+  // const onSubmit = handleSubmit(async (data) => {
+  //  try {
+  //   console.log(data);
+  //   const { name, steps, summary, image, diets, healthScore } = data;
+  //   const response = await axios.post("http://localhost:3001/recipes", {
+  //     name,
+  //     summary,
+  //     steps,
+  //     diets: selectedDiets,
+  //     image,
+  //     healthScore
+  //   });
+  //   console.log(response.data); 
+  //  } catch (error) {
+  //   throw new Error ("Algo salió mal") +  error; 
+  //  }
+  // });
+  // const onSubmit = async data => {
+  //   try {
+  //     console.log("hola")
+  //     console.log(data); 
+  //     //const { name, diets, summary, steps, image, healthScore } = data;
+  //     await axios.post("http://localhost:3001/recipes", data)
+  //   } catch (error) {
+  //     console.log(1); 
+  //     console.log(error);
+  //     throw new Error ("Error al enviar el formulario") + error
+  //   }
+  // }
+  const onSubmit = async data => {
+    try {
+      console.log(data)
+      const { name, summary, healthScore, image, steps, diets } = data;
+      const selectedDiets = data.diets.map(diet => diet.name); // Esto asume que cada dieta tiene un campo "name"
+      
+      const formData = {
+        name,
+        summary,
+        healthScore,
+        image,
+        diets: selectedDiets,
+        steps: steps.split("\n")
+      };
+  
+      await axios.post("http://localhost:3001/recipes", formData);
+      console.log("Receta enviada exitosamente");
+    } catch (error) {
+      console.log(error);
+      throw new Error("Error al enviar el formulario: " + error);
+    }
+  }
+  
     
     return(
         <div>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <label htmlFor="name">Nombre:</label>  
                 <input 
                 type= "text"
@@ -231,14 +292,14 @@ const Form = () => {
                  errors.image && <span>La imagen es requerida</span>
                 }
 
-                <label htmlFor="description">Descripción</label>
+                <label htmlFor="summary">Descripción</label>
                 <textarea 
-                {...register("description", {
+                {...register("summary", {
                     required: true
                 })
                 }/>  
                  {
-                  errors.description && <span>La descripción es requerida</span> 
+                  errors.summary && <span>La descripción es requerida</span> 
                  } 
                 <label htmlFor="healthScore">Puntuación de salud:</label>
                 <input 
@@ -259,30 +320,48 @@ const Form = () => {
                  errors.steps && <span>Al menos un paso es requerida</span>
                 } 
 
-                <label htmlFor="diets">Selecciona las dietas:</label>
-                <select name = "diets" multiple  
-                onChange={handleSelectDiets}>
-                  {diets?.map((diet, index) => (
-                        <option key = {index} value = {diet}>{diet}</option>
-                  ))}
-                </select>
+                
+              
+                
+                <div className="container-form-diet">
+        <label className="form-diet">Selecciona una dieta:</label>
+        {diets?.map((diet, index) => (
+          <label key={diet}>
+            <input
+              key ={index}
+              type="checkbox"
+              name="diets"
+              value={diet}
+              {...register("diets", {
+                required: {
+                  value: true,
+                  message: "Selecciona al menos una dieta",
+                },
+              })}
+            />
+            {diet}
+          </label>
+        ))}
+      </div>
+
+
                 {
                  errors.diets && <span>Selecciona al menos una dieta</span>
                 }
                 <hr />
-            <div>
-                <h2>Dietas seleccionadas:</h2>
+            {/* <div>
+                <h5>Dietas seleccionadas:</h5>
                 <ul>
                     {
-                      selectedDiet.map((diet, index) => (
+                      selectedDiets.map((diet, index) => (
                         <div>
-                            <button onClick={handleDeleteDiet}>x</button>
-                        <li key ={index}>{diet}</li>
+                            <button onClick={() => handleDeleteDiet(index)}>x</button>
+                        <li key ={index} value = {diet}>{diet}</li>
                         </div>
                       ))  
                     }
                 </ul>
-            </div>
+            </div> */}
 
                 <button type = "submit">Crear</button>
             </form>
