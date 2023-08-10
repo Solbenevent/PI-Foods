@@ -17,7 +17,7 @@ const Cards = ({recipes}) => {
             id = {recipe.id}
             image = {recipe.image}
             name = {recipe.name}
-            diets = {recipe?.diets} />
+            diets = {recipe?.diets?.map(diet => diet)} />
          )
        })}
   

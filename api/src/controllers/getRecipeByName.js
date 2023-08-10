@@ -107,10 +107,15 @@ const searchRecipesNames = async (req, res) => {
     try {
         if(name) {
             const infoNames = await getDBByName(name);
-            if(infoNames) {
-                res.status(200).json(infoNames);
-            }
-        } else res.status(404).send("Not found");
+            const simplifiedRecipes = infoNames.map(recipe => ({
+                id: recipe.id,
+                name: recipe.name,
+                image: recipe.image,
+                diets: recipe.diets?.map(diet => diet.name),
+                // Otros campos necesarios
+            }));
+            res.status(200).json(simplifiedRecipes);
+        } else res.status(404).json({ message: "Receta no encontrada"});
         
     } catch (error) {
         res.status(400).json({ message: "Name parameter is missing" });

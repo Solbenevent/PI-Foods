@@ -236,7 +236,7 @@ const Form = () => {
     try {
       console.log(data)
       const { name, summary, healthScore, image, steps, diets } = data;
-      const selectedDiets = data.diets.map(diet => diet.name); // Esto asume que cada dieta tiene un campo "name"
+      const selectedDiets = data.diets.map(diet => diet); // Esto asume que cada dieta tiene un campo "name"
       
       const formData = {
         name,
@@ -248,7 +248,7 @@ const Form = () => {
       };
   
       await axios.post("http://localhost:3001/recipes", formData);
-      console.log("Receta enviada exitosamente");
+    console.log(formData);
     } catch (error) {
       console.log(error);
       throw new Error("Error al enviar el formulario: " + error);

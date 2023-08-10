@@ -15,6 +15,7 @@ const createRecipes = async (req, res) => {
  try {
     if(!name && !summary && !healthScore && !image && !diets) 
       return res.status(400).json({ message: "Debe completar los campos"}); 
+      const selectedDiets = diets.map(diet => diet);
       
       const recipeCreated = await Recipe.create({
         name,
@@ -25,11 +26,14 @@ const createRecipes = async (req, res) => {
         created: true,
       });
 
-     const dietDB = await Diet.findAll({
-        where: { name: {
-          [Op.in] : diets
-        } }
-     });
+    //  const dietDB = await Diet.findAll({
+    //     where: { name: {
+    //       [Op.in] : diets
+    //     } }
+    //  });
+    const dietDB = await Diet.findAll({
+      where: { name: selectedDiets }, 
+    }); 
      recipeCreated.addDiet(dietDB);
      return res.status(201).json({ message: "Receta creada exitosamente" }); 
 
