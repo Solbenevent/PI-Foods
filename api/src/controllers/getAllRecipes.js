@@ -71,11 +71,15 @@ const loadRecipesToDB = async (recipes) => {
 
 const fetchAndSaveRecipes = async (req, res) => {
   try {
-    const recipes = await getInfofromApi();
-    await loadRecipesToDB(recipes);
-    res.status(200).json(recipes);
+    const recipesFromApi = await getInfofromApi();
+    const recipesFromDB = await Recipe.findAll({ include: Diet });
+    const newRecipes = recipesFromApi.filter(apiRecipe => !recipesFromDB.some(dbRecipe => dbRecipe.id === apiRecipe.id));
+
+    const allRecipes = [...newRecipes, ...recipesFromDB]
+    await loadRecipesToDB(allRecipes);
+    res.status(200).json(allRecipes);
   } catch (error) {
-    res.status(500).json({ error: error.message }); 
+    res.status(500).json({ message: "Error al cargar todas las recetas" + "" + error }); 
   }
 }
 

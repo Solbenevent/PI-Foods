@@ -1,23 +1,37 @@
 const Pagination = ({recipePerPage, totalRecipes, currentPage, handlePaginate}) => {
   const pageNumbers = Math.ceil(totalRecipes / recipePerPage);
 
+  // const renderPageNumbers = () => {
+  //   const buttons = [];
+  //   const start = Math.max(currentPage - 1, 1)
+  //   const end = Math.min(currentPage + 1, pageNumbers);
+  //   for (let i = start; i <= end; i++){
+  //       buttons.push(
+  //           <li
+  //           key={i}
+  //           onClick = {() => handlePaginate(i)}
+  //           >
+  //               {i}
+  //           </li>
+  //       )
+  //   }
+  //   return buttons;
+  // }
+ 
   const renderPageNumbers = () => {
     const buttons = [];
-    const start = Math.max(currentPage - 1, 1)
-    const end = Math.min(currentPage + 1, pageNumbers);
-    for (let i = start; i <= end; i++){
-        buttons.push(
-            <li
-            key={i}
-            onClick = {() => handlePaginate(i)}
-            >
-                {i}
-            </li>
-        )
+    for(let i = 1; i <= pageNumbers; i++) {
+      buttons.push(
+        <button 
+        key ={i}
+        onClick={() => handlePaginate(i)}>
+          {i}
+        </button>
+      );
     }
-    return buttons;
+    return buttons; 
   }
- 
+
   const handlePrev = () => {
     if (currentPage > 1) {
         handlePaginate(currentPage - 1);
@@ -50,7 +64,7 @@ const Pagination = ({recipePerPage, totalRecipes, currentPage, handlePaginate}) 
             </button>
 
             <button onClick ={handlePrev}>Prev</button>    
-            {renderPageNumbers}
+            {renderPageNumbers()}
             <button onClick ={handleNext}>last</button>
         </ul>
     </div>
